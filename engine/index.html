@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>CodeCinematics 3D Cyber Stage</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%;
+      background: #020617;
+      overflow: hidden;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+    #stage {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1080px; height: 1920px;
+      transform-origin: top left;
+      background: radial-gradient(circle at 50% 40%, #0f172a 0%, #020617 100%);
+    }
+    #hud-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1080px; height: 1920px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .hud-chip {
+      position: absolute;
+      top: 80px; left: 60px;
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      border-radius: 9999px;
+      padding: 12px 24px;
+      color: #38bdf8;
+      font-size: 26px;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
+    }
+    .hud-chip .dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #06b6d4;
+      box-shadow: 0 0 12px #06b6d4;
+      animation: pulse 1.5s infinite;
+    }
+    .telemetry-card {
+      position: absolute;
+      top: 160px; right: 60px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      border-radius: 18px;
+      padding: 24px 32px;
+      color: #e2e8f0;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .telemetry-title {
+      font-size: 20px;
+      color: #94a3b8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .telemetry-stat {
+      font-size: 42px;
+      font-weight: 800;
+      color: #a855f7;
+      text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    }
+    .telemetry-delta {
+      font-size: 22px;
+      font-weight: 600;
+      color: #10b981;
+      margin-top: 4px;
+    }
+    .terminal-subtitles {
+      position: absolute;
+      bottom: 240px; left: 0; width: 100%;
+      text-align: center;
+      padding: 0 80px;
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 30px rgba(6, 182, 212, 0.6);
+    }
+    .terminal-subtitles .hl {
+      color: #38bdf8;
+      text-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud-overlay">
+      <div class="hud-chip">
+        <div class="dot"></div>
+        <span id="branch-tag">main // commit a9f4c2</span>
+      </div>
+      <div class="telemetry-card">
+        <div class="telemetry-title">Architecture Refactor</div>
+        <div class="telemetry-stat" id="stat-main">3.2k LOC</div>
+        <div class="telemetry-delta" id="stat-sub">+842 / -1,230 LOC (-45% Latency)</div>
+      </div>
+      <div class="terminal-subtitles" id="subtitles">
+        <span class="hl">REFACTORING</span> DISTRIBUTED PIPELINE
+      </div>
+    </div>
+  </div>
+
+  <script src="src/cyber_stage.js"></script>
+</body>
+</html>
